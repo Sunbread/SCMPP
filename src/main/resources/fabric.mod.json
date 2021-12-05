@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "scmpp",
+  "version": "${version}",
+  "name": "SlimeChunkMap++",
+  "description": "",
+  "authors": [
+    "Sunbread"
+  ],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/scmpp/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "top.sunbread.scmpp.Scmpp"
+    ]
+  },
+  "mixins": [
+    "scmpp.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.12.8",
+    "minecraft": ">=1.18"
+  }
+}

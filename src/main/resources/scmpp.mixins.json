@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "top.sunbread.scmpp.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "server": [
+    "FilledMapItemMixin",
+    "ServerWorldMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
