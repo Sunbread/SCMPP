@@ -33,7 +33,8 @@ public class Scmpp implements ModInitializer {
     }
 
     public static void noticePlayer(ServerPlayerEntity player, ServerWorld world) {
-        sendMapPacket(player, generatePattern(player, world));
+        if (((ScmppTracked) player).scmppCheckMove())
+            sendMapPacket(player, generatePattern(player, world));
     }
 
     private static byte[] generatePattern(PlayerEntity player, ServerWorld world) {
