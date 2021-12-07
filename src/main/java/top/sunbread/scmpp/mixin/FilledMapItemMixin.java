@@ -23,7 +23,6 @@ public abstract class FilledMapItemMixin extends NetworkSyncedItem {
         super(settings);
     }
 
-    @Unique
     @Inject(at = @At(value = "HEAD"), method = "inventoryTick(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;IZ)V")
     private void onInventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
         if (!world.isClient && world instanceof ServerWorld serverWorld && entity instanceof ServerPlayerEntity player &&
