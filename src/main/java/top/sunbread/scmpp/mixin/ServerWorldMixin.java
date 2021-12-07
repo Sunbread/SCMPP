@@ -9,6 +9,7 @@ import net.minecraft.world.MutableWorldProperties;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -25,13 +26,15 @@ public abstract class ServerWorldMixin extends World {
         super(properties, registryRef, dimensionType, profiler, isClient, debugWorld, seed);
     }
 
+    @Unique
     @Inject(at = @At(value = "HEAD"), method = "getMapState(Ljava/lang/String;)Lnet/minecraft/item/map/MapState;", cancellable = true)
-    public void onGetMapState(String id, CallbackInfoReturnable<MapState> cir) {
+    private void onGetMapState(String id, CallbackInfoReturnable<MapState> cir) {
         if (Objects.equals(id, FilledMapItem.getMapName(Scmpp.MAP_ID))) cir.setReturnValue(null);
     }
 
+    @Unique
     @Inject(at = @At(value = "HEAD"), method = "putMapState(Ljava/lang/String;Lnet/minecraft/item/map/MapState;)V", cancellable = true)
-    public void onPutMapState(String id, MapState state, CallbackInfo ci) {
+    private void onPutMapState(String id, MapState state, CallbackInfo ci) {
         if (Objects.equals(id, FilledMapItem.getMapName(Scmpp.MAP_ID))) ci.cancel();
     }
 

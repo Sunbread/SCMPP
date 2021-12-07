@@ -8,6 +8,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -22,8 +23,9 @@ public abstract class FilledMapItemMixin extends NetworkSyncedItem {
         super(settings);
     }
 
+    @Unique
     @Inject(at = @At(value = "HEAD"), method = "inventoryTick(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;IZ)V")
-    public void onInventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
+    private void onInventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
         if (!world.isClient && world instanceof ServerWorld serverWorld && entity instanceof ServerPlayerEntity player &&
                 (selected || player.getOffHandStack() == stack) &&
                 Objects.equals(FilledMapItem.getMapId(stack), Scmpp.MAP_ID)) Scmpp.noticePlayer(player, serverWorld);
