@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import top.sunbread.scmpp.Noticer;
 import top.sunbread.scmpp.Scmpp;
 
 import java.util.Objects;
@@ -26,7 +27,7 @@ public abstract class FilledMapItemMixin extends NetworkSyncedItem {
     private void onInventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
         if (!world.isClient && world instanceof ServerWorld serverWorld && entity instanceof ServerPlayerEntity player &&
                 (selected || player.getOffHandStack() == stack) &&
-                Objects.equals(FilledMapItem.getMapId(stack), Scmpp.MAP_ID)) Scmpp.noticePlayer(player, serverWorld);
+                Objects.equals(FilledMapItem.getMapId(stack), Scmpp.MAP_ID)) Noticer.noticePlayer(player, serverWorld);
     }
 
 }

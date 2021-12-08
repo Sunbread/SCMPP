@@ -3,6 +3,7 @@ package top.sunbread.scmpp;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import top.sunbread.scmpp.util.Util;
 
 import java.util.Objects;
 
@@ -16,8 +17,8 @@ public class LocationInfo {
         loc.world = player.getWorld();
         loc.pos = player.getBlockPos();
         if (lastWorld == null || lastPos == null) return true;
-        if (!Objects.equals(player.getWorld(), lastWorld)) return true;
-        return !Objects.equals(player.getBlockPos(), lastPos);
+        return !Objects.equals(player.getWorld(), lastWorld) ||
+                !Objects.equals(Util.blockPos2GridPos(player.getBlockPos()), Util.blockPos2GridPos(lastPos));
     }
 
 }
